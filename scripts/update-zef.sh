@@ -11,8 +11,8 @@ build()
 cleanup()
 {
 	rm -rf "$WORKDIR"
-	apt remove $DEPS
-	apt autoremove
+	apt -y remove $DEPS
+	apt -y autoremove
 }
 
 prepare()
@@ -32,7 +32,7 @@ main()
 	cleanup
 
 	# Curl is needed in order to use zef
-	apt install curl
+	apt install -y curl
 }
 
 main "$@"

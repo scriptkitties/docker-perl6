@@ -13,8 +13,8 @@ build()
 cleanup()
 {
 	rm -rf "$WORKDIR"
-	apt remove $DEPS
-	apt autoremove
+	apt -y remove $DEPS
+	apt -y autoremove
 }
 
 prepare()
