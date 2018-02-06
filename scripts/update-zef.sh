@@ -26,13 +26,13 @@ prepare()
 
 main()
 {
-	# Curl is needed in order to use zef
-	apt install curl
-
 	# Bootstrap zef
 	prepare
 	build
 	cleanup
+
+	# Curl is needed in order to use zef
+	apt install curl
 }
 
 main "$@"
