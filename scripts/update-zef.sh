@@ -9,6 +9,7 @@ build()
 
 cleanup()
 {
+	cd || exit
 	rm -rf "$WORKDIR"
 	apt -y autoremove
 }

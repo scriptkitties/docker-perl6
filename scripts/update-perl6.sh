@@ -12,6 +12,7 @@ build()
 
 cleanup()
 {
+	cd || exit
 	rm -rf "$WORKDIR"
 	apt -y remove $DEPS
 	apt -y autoremove
