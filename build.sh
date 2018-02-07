@@ -5,7 +5,7 @@ main()
 	release=${1:-master}
 	tag=${1:-latest}
 
-	[ -n "$1" ] && args=" --no-cache"
+	[ -z "$1" ] && args=" --no-cache"
 
 	shift
 
