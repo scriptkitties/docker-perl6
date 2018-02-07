@@ -1,31 +1,18 @@
 FROM debian:stable
 LABEL maintainer="Patrick Spek <p.spek@tyil.work>"
 
-WORKDIR /perl6
+ARG RELEASE=master
 
-# Prepare system
-RUN apt update
-RUN apt -y install build-essential curl git
+# Update shell profile
+COPY ./scripts/bashrc.sh /root/.bashrc
 
-# Setup rakudobrew
-RUN git clone https://github.com/tadzik/rakudobrew
+# Install Rakudo Perl 6
+COPY ./scripts/update-perl6.sh /usr/bin/update-perl6
+RUN update-perl6 $RELEASE
 
-RUN printf "%s\n" 'export PATH=/perl6/rakudobrew/bin:$PATH' >> /etc/profile
-RUN printf "%s\n" 'eval "$(/perl6/rakudobrew/bin/rakudobrew init -)"' >> /etc/profile
-
-ENV PATH="/perl6/rakudobrew/bin:${PATH}"
-
-# Compile Rakudo Perl 6
-RUN rakudobrew build moar 2018.01
-RUN rakudobrew build zef
-RUN rakudobrew rehash
-
-# Install nice things
-RUN zef install Test::META
-
-# Cleanup system
-RUN apt -y remove build-essential
-RUN apt -y autoremove
+# Install zef
+COPY ./scripts/update-zef.sh /usr/bin/update-zef
+RUN update-zef
 
 # Prepare for use as a base template
 WORKDIR /app
