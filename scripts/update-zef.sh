@@ -1,6 +1,5 @@
 #! /usr/bin/env sh
 
-readonly DEPS="git"
 readonly WORKDIR=$(mktemp -d)
 
 build()
@@ -11,14 +10,12 @@ build()
 cleanup()
 {
 	rm -rf "$WORKDIR"
-	apt -y remove $DEPS
 	apt -y autoremove
 }
 
 prepare()
 {
 	apt update
-	apt install -y $DEPS
 
 	git clone https://github.com/ugexe/zef "$WORKDIR"
 	cd "$WORKDIR" || exit
@@ -26,13 +23,14 @@ prepare()
 
 main()
 {
+	# Curl and git are backends for zef's fetching mechanism, so they need not
+	# be deleted afterwards.
+	apt install -y curl git
+
 	# Bootstrap zef
 	prepare
 	build
 	cleanup
-
-	# Curl is needed in order to use zef
-	apt install -y curl
 }
 
 main "$@"
