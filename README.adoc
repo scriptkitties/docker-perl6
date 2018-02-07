@@ -1,0 +1,40 @@
+= scriptkitties/perl6
+
+A docker image containing https://perl6.org[Perl 6].
+
+== Usage
+To get the docker image, `pull` it using `docker`:
+
+[source,sh]
+----
+$ docker pull scriptkitties/perl6:latest
+----
+
+There are also versioned releases available, which follow the versioning of the
+Perl 6 releases. To get these, replace the `latest` tag with the release
+number:
+
+[source,sh]
+----
+$ docker pull scriptkitties/perl6:2018.01
+----
+
+== Building the image
+If you want to build this image yourself, the easiest way is to use the
+`build.sh` script supplied in the root of the repository. To build the latest
+Perl 6 release, run it without arguments:
+
+[source,sh]
+----
+$ sh ./build.sh
+----
+
+If you want a specific release, pass this as an argument:
+
+[source,sh]
+----
+$ sh ./build.sh 2018.01
+----
+
+== License
+All code supplied in this repository is distributed under the LGPL version 3.
